@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Head from 'next/head';
 
-import CircularProgress from '@material-ui/core/CircularProgress'
 import IconButton from '@material-ui/core/IconButton'
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -10,36 +9,19 @@ import CardActions from '@material-ui/core/CardActions';
 import {
   Favorite,
   FavoriteBorder,
-  SearchRounded,
 } from '@material-ui/icons';
 
 import Header from '../components/Header';
 import styles from '../styles/Home.module.css'
 
-export default function Home({ isFavorite, setIsFavorite }) {
-  const [ loading, setLoading ] = useState(false);
+export default function Favoritos({ isFavorite, setIsFavorite}) {
   const [ movies, setMovies ] = useState([]);
-  const [ search, setSearch ] = useState('')
-
-  async function submitSearch(event) {
-    event.preventDefault();
-    setLoading(true);
-    const response = await axios.get(
-      `http://www.omdbapi.com/?apikey=925eba28&s=${search}`
-    );
-    setMovies(response.data.Search);
-    setLoading(false);
-  }
 
   useEffect(() => {
-    let favorites = [];
-    Object.keys(isFavorite).forEach(favorite => {
-      if(isFavorite[favorite])
-        favorites.push(favorite);
-    });
-    const favoritesToStorage = JSON.toString({favorites});
-    localStorage.setItem('favoritesList', favoritesToStorage);
-  }, [isFavorite]);
+    const temp = localStorage.getItem('favoritesList');
+    console.log("temp");
+    console.log(temp);
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -50,25 +32,6 @@ export default function Home({ isFavorite, setIsFavorite }) {
 
       <Header />
 
-      <form
-        className={styles.search}
-        onSubmit={event => submitSearch(event)}
-      >
-        <input
-          type='text'
-          placeholder='Encontrar filme'
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-          {
-            loading ?
-              <CircularProgress className={styles.progressIcons} /> :
-              <button className={styles.searchIcon} type='submit'>
-                <SearchRounded />
-              </button>
-          }
-      </form>
-
       <main className={styles.movies}>
         {movies ? movies.map(movie => {
           const thisFavorite = localStorage.getItem(`favorite${movie.imdbID}`);
@@ -77,18 +40,16 @@ export default function Home({ isFavorite, setIsFavorite }) {
             <figure key={movie.imdbID} className={styles.movie} >
               <Card 
                 className={styles.movieCard}
-              >
+                >
                 <CardHeader title={movie.Title} subheader={movie.Year} />
                 <img src={movie.Poster} alt=""/>
                 <CardActions disableSpacing>
                   <IconButton onClick={() => {
-                    if(isFavorite[movie.imdbID] == "true") {
+                    if(isFavorite[movie.imdbID] == "true")
                       localStorage.setItem(`favorite${movie.imdbID}`, false);
-                      delete isFavorite[movie.imdbID];
-                    }
                     else
                       localStorage.setItem(`favorite${movie.imdbID}`, true);
-                    setIsFavorite({isFavorite})
+                    setIsFavorite([...isFavorite])
                   }}>
                     {isFavorite[movie.imdbID] == "true" ? <Favorite /> : <FavoriteBorder />}
                   </IconButton>
