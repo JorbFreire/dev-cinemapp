@@ -1,0 +1,12 @@
+.container {
+  height: 100vh;
+  background-color: #F7F7F7;
+}
+
+.main {
+  background-color: red;
+}
+
+.footer {
+  background-color: seagreen;
+}
