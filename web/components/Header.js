@@ -25,10 +25,12 @@ export default function Home() {
         PaperProps={{component: 'nav'}}
         className={styles.navBox}
       >
-        <a>Login</a>
-        <a>Criar conta</a>
-        <a>Descobrir filmes</a>
-        <a>Favoritos</a>
+        <Link href="/">
+          <a>Descobrir filmes</a>
+        </Link>
+        <Link href="/favoritos">
+          <a>Favoritos</a>
+        </Link>
       </SwipeableDrawer>
     </header>
   )

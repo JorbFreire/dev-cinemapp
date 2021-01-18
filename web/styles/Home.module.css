@@ -1,12 +1,115 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
   height: 100vh;
+  width: 100%;
   background-color: #F7F7F7;
+  overflow: auto;
 }
 
-.main {
-  background-color: red;
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+/* #00363D */
+.search input {
+  width: 100%;
+  max-width: 300px;
+  height: 35px;
+  padding: 0 14px;
+  margin-right: 12px;
+
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 18px;
+  background-color: #00BBD430;
+  color: #007787;
 }
 
-.footer {
-  background-color: seagreen;
+.progressIcons {
+  height: 26px !important;
+  width: 26px !important;
+}
+.search button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.searchIcon svg {
+  transition: 0.5s;
+  fill: #007787;
+  height: 26px;
+  width: 26px;
+}
+
+.searchIcon svg:hover {
+  transition: 0.5s;
+  fill: #00BBD4;
+}
+
+/* movies */
+.movies {
+  width: fit-content;
+  column-gap: 10px;
+  padding: 20px;
+}
+
+.movie {
+  width: fit-content;
+  margin: 0;
+  display: flex;
+  break-inside: avoid;
+}
+
+.movieCard {
+  width: 300px;
+  margin-bottom: 22px;
+}
+
+.movieCard button {
+  width: 42px;
+  height: 42px;
+}
+.movieCard svg {
+  width: 170%;
+  height: 170%;
+}
+
+.movieCard img {
+  width: 100%;
+}
+
+@media (min-width: 690px) {
+  .movies {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1000px) {
+  .movies {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1320px) {
+  .movies {
+    column-count: 4;
+  }
+}
+
+@media (min-width: 1625px) {
+  .movies {
+    column-count: 5;
+  }
+}
+
+@media (min-width: 2000px) {
+  .movies {
+    column-count: 6;
+  }
 }
